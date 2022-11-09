@@ -1,3 +1,4 @@
+
 const obtenerCategoria= async() => {
     const url=`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
     const resp = await axios.get(url);
@@ -36,7 +37,7 @@ const obtenerRecetas = async () => {
                 <h2 class="card-header">${drink.strDrink}</h2>
                 <img class="card-img-top" src="${drink.strDrinkThumb}" alt="${drink.strDrink}" />
                 <div class="card-body">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#verModal" onclick="verReceta(${drink.idDrink})">Ver Receta</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#verModal" onclick="verReceta(${drink.idDrink})">Ver Receta</button>
                 </div>    
             </div>               
         </div>`;
@@ -67,6 +68,14 @@ const verReceta = async (idReceta) => {
     imagen.src = info.strDrinkThumb;
     ingredientes.innerHTML = listarIngredientes(info);
 
+    // cuando se esconde el modal se limpia el contenido
+    const recipeModal = document.getElementById('verModal')
+    recipeModal.addEventListener('hide.bs.modal', function () {
+        tituloReceta.innerHTML = "" 
+        instrucciones.innerHTML = ""
+        ingredientes.innerHTML = ""
+        imagen.src = ""
+    })
 };
 
 // ----------------------------------------------------------------
@@ -85,9 +94,9 @@ const listarIngredientes = (info) => {
 // ----------------------------------------------------------------
 
 const borrarRecetas = () => {
-    document.querySelector("#nombre").value = "";
-    document.querySelector("#categoria").value = "";
-    document.querySelector("#divListadoRecetas").innerHTML = "";
+      document.querySelector("#nombre").value = "";
+      document.querySelector("#categoria").value = "";
+      document.querySelector("#divListadoRecetas").innerHTML = "";
 };
 
 // ----------------------------------------------------------------
