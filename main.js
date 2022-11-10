@@ -94,19 +94,47 @@ const listarIngredientes = (info) => {
 // ----------------------------------------------------------------
 
 const borrarRecetas = () => {
+  Swal.fire({
+    text: "Desea limpiar la busqueda?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si",
+    cancelButtonText: "No",
+  }).then((result) => {
+    if (result.isConfirmed) {
       document.querySelector("#nombre").value = "";
       document.querySelector("#categoria").value = "";
       document.querySelector("#divListadoRecetas").innerHTML = "";
+      Swal.fire(
+        "Su busqueda se ha limpiado",
+        "Presione para continuar",
+        "success"
+      );
+    }
+  });
 };
 
 // ----------------------------------------------------------------
 
 const mostrarError = (elemento, mensaje) => {
-    divError = document.querySelector(elemento);
-    divError.innerHTML=`<p class="text-center alert alert-danger">${mensaje}</p>`;
-    setTimeout(() => {
-        divError.innerHTML=``;
-    }, 5000);
+    Toastify({
+      text: mensaje,
+      gravity: "bottom", // `top` or `bottom`
+      duration: 3000,
+      style: {
+        "background-color": "#dc3545",
+        "background-image":
+          "linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0))",
+      },
+      close: true,
+    }).showToast();
+    // divError = document.querySelector(elemento);
+    // divError.innerHTML=`<p class="text-center alert alert-danger">${mensaje}</p>`;
+    // setTimeout(() => {
+    //     divError.innerHTML=``;
+    // }, 5000);
 };
 
 // ----------------------------------------------------------------
